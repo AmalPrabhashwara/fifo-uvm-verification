@@ -56,5 +56,13 @@ endproperty
 
 assert property(rst_fifo) else $error("failed assertion: FIFO content is not cleared when FIFO reset");
 
+property wr_fifo;
+    int index;
+    int data;
+    @(posedge clk) disable iff(rst)
+  (wen && !full,index=wCnt,data=din) |=> mem[index]==data;
+endproperty
+
+assert property(wr_fifo) else $error("fifo write failed");
 
 endmodule
