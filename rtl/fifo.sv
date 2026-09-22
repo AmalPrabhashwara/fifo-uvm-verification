@@ -42,4 +42,19 @@ endproperty
 
 assert property(rst_cnt) else $error("failed assertion: wCnt is not zero when reset is asserted");
 
+function bit memrst();
+    for(int i=0;i<DEPTH;i++)begin
+      if(mem[i]!=0)
+            return 0;
+    end
+    return 1;
+endfunction
+
+property rst_fifo;
+    @(posedge clk) rst |=> memrst();
+endproperty
+
+assert property(rst_fifo) else $error("failed assertion: FIFO content is not cleared when FIFO reset");
+
+
 endmodule
