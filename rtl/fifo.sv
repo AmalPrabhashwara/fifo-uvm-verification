@@ -40,6 +40,6 @@ property rst_cnt;
   @(posedge clk) rst|=> (wCnt==0 && rCnt==0);
 endproperty
 
-assert property(rst_cnt);
+assert property(rst_cnt) else $error("failed assertion: wCnt is not zero when reset is asserted");
 
 endmodule
