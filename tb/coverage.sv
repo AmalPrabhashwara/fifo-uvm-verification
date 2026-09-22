@@ -7,7 +7,7 @@ class coverage extends uvm_agent;
     op_t op;
     stat_t stat;
     logic [7:0] data;
-  	
+
     covergroup fifo_cov;
         cp_op:coverpoint op{
             bins wr={write};
@@ -26,9 +26,9 @@ class coverage extends uvm_agent;
             bins ones={'hff};
         }
       	
-      cp_rst_cross:cross cp_op,cp_stat{
-        bins rst=binsof(cp_op.rst);
-      }
+        cp_write_rst:coverpoint op{
+            bins rst=(write=>reset);
+      	}
       
     endgroup
 
