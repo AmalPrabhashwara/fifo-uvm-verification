@@ -132,3 +132,32 @@ class write_read_random_seq extends uvm_sequence #(fifo_req,fifo_rsp);
     endtask
 endclass
 
+class reset_behave_test_seq extends uvm_sequence #(fifo_req, fifo_rsp);
+    `uvm_object_utils(reset_behave_test_seq);
+
+    function new(string name="");
+        super.new(name);
+    endfunction
+
+    task body;
+        reset_fifo_seq  reset_seq;
+        reset_seq=reset_fifo_seq::type_id::create("reset_seq");
+
+        reset_seq.start(m_sequencer,this);
+ 
+        repeat(10)begin
+            write_fifo_seq write_seq;
+            write_seq=write_fifo_seq::type_id::create(write_seq);
+            write_seq.start(m_sequencer,this);
+        end
+
+        reset_seq.start(m_sequencer,this);
+
+        repeat(20)begin
+            write_fifo_seq write_seq;
+            write_seq=write_fifo_seq::type_id::create(write_seq);
+            write_seq.start(m_sequencer,this);
+        end
+
+    endtask
+endclass
