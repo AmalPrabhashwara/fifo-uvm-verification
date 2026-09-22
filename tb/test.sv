@@ -45,8 +45,8 @@ class test2 extends uvm_test;
   
 endclass
 
-class reset_behav_test extends uvm_test;
-    `uvm_component_utils(reset_behav_test);
+class test3 extends uvm_test;
+    `uvm_component_utils(test3);
 
     test_env env;
 
@@ -60,7 +60,7 @@ class reset_behav_test extends uvm_test;
 
     task run_phase(uvm_phase phase);
         reset_behave_test_seq seq;
-        seq=reset_behave_test_seq::type_id::creat("seq");
+        seq=reset_behave_test_seq::type_id::create("seq");
         phase.raise_objection(this);
         seq.start(env.agent_h.seqr);
         phase.drop_objection(this);
