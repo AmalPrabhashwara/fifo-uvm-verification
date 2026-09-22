@@ -44,3 +44,26 @@ class test2 extends uvm_test;
   endtask
   
 endclass
+
+class reset_behav_test extends uvm_test;
+    `uvm_component_utils(reset_behav_test);
+
+    test_env env;
+
+    function new(string name="", uvm_component parent=null);
+        super.new(name,parent);
+    endfunction
+
+    function void build_phase(uvm_phase phase);
+        env=test_env::type_id::create("env",this);
+    endfunction
+
+    task run_phase(uvm_phase phase);
+        reset_behave_test_seq seq;
+        seq=reset_behave_test_seq::type_id::creat("seq");
+        phase.raise_objection(this);
+        seq.start(env.agent_h.seqr);
+        phase.drop_objection(this);
+    endtask
+
+endclass
