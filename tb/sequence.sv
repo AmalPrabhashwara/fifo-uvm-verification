@@ -143,7 +143,7 @@ class reset_behave_test_seq extends uvm_sequence #(fifo_req, fifo_rsp);
         reset_fifo_seq  reset_seq;
         reset_seq=reset_fifo_seq::type_id::create("reset_seq");
 
-        reset_seq.start(m_sequencer,this);
+      reset_seq.start(m_sequencer,this);//reset at begining
  
         repeat(10)begin
             write_fifo_seq write_seq;
@@ -151,7 +151,7 @@ class reset_behave_test_seq extends uvm_sequence #(fifo_req, fifo_rsp);
             write_seq.start(m_sequencer,this);
         end
 
-        reset_seq.start(m_sequencer,this);
+      reset_seq.start(m_sequencer,this);//reset while write
 
         repeat(20)begin
             write_fifo_seq write_seq;
@@ -159,5 +159,13 @@ class reset_behave_test_seq extends uvm_sequence #(fifo_req, fifo_rsp);
             write_seq.start(m_sequencer,this);
         end
 
+      reset_seq.start(m_sequencer,this);//reset when fifo full
+      
+      	repeat(10)begin
+            write_fifo_seq write_seq;
+            write_seq=write_fifo_seq::type_id::create("write_seq");
+            write_seq.start(m_sequencer,this);
+        end
+      
     endtask
 endclass
