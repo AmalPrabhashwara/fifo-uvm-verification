@@ -1,5 +1,5 @@
 class coverage extends uvm_agent;
-    `uvm_component_utils(coverage2);
+    `uvm_component_utils(coverage);
 
     uvm_tlm_analysis_fifo #(fifo_req) req_afifo;
     uvm_tlm_analysis_fifo #(fifo_rsp) rsp_afifo;
@@ -30,9 +30,9 @@ class coverage extends uvm_agent;
         }
     endgroup
 
-    function new(string name="coverage2", uvm_component parent=null);
+    function new(string name="coverage", uvm_component parent=null);
         super.new(name,parent);
-        fifo_cover=new();
+        fifo_cov=new();
     endfunction
 
     function void build_phase(uvm_phase phase);
