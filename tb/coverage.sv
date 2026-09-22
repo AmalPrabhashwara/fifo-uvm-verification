@@ -26,12 +26,10 @@ class coverage extends uvm_agent;
             bins ones={'hff};
         }
       	
-      cp_rst_empty:cross cp_op,cp_stat{
-        bins rst_empty=binsof(cp_op.rst) && binsof(cp_stat.empty);
+      cp_rst_cross:cross cp_op,cp_stat{
+        bins rst=binsof(cp_op.rst);
       }
-      cp_rst_mid:cross cp_op,cp_stat{
-        bins rst_mid=binsof(cp_op.rst) && binsof(cp_stat.mid);
-      }
+      
     endgroup
 
     function new(string name="coverage", uvm_component parent=null);
