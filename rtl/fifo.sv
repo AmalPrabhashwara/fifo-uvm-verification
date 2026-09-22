@@ -36,4 +36,10 @@ end
 assign full=(wCnt[$clog2(DEPTH)]!=rCnt[$clog2(DEPTH)])&&(wCnt[$clog2(DEPTH)-1:0]==rCnt[$clog2(DEPTH)-1:0]);
 assign empty=(wCnt==rCnt);
 
+property rst_cnt;
+  @(posedge clk) rst|=> (wCnt==0 && rCnt==0);
+endproperty
+
+assert property(rst_cnt);
+
 endmodule
