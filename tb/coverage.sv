@@ -7,27 +7,28 @@ class coverage extends uvm_agent;
     op_t op;
     stat_t stat;
     logic [7:0] data;
-
+  	
     covergroup fifo_cov;
-        op_cov:coverpoint op{
+        cp_op:coverpoint op{
             bins wr={write};
             bins rd={read};
             bins wr_rd={write_read};
             bins rst={reset};
         }
-        stat_cov:coverpoint stat{
+        cp_stat:coverpoint stat{
             bins full={full};
             bins mid={mid};
             bins empty={empty};
         }
-        data_cov:coverpoint data{
+        cp_data:coverpoint data{
             bins zeros={0};
             bins mid={['h00:'hfe]};
             bins ones={'hff};
         }
-        op_stat_cross:cross op_cov,stat_cov{
-            ignore_bins rst=binsof
-        }
+      	
+      cp_rst_empty:cross cp_op,cp_stat{
+        bins rst_empty=binsof(cp_op.rst) && binsof(cp_stat.empty);
+      }
     endgroup
 
     function new(string name="coverage", uvm_component parent=null);
