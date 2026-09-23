@@ -78,7 +78,7 @@ FIFO stands for First In First Out. It is a memory based circuit that can stores
 - cp_wr_full - check whether test performs write when fifo is full
 
 
-## Feature 2 - Read operation
+## Feature 3 - Read operation
 
 ### Test- test1
 
@@ -99,7 +99,7 @@ Check the correctness of the read data from FIFO. It checks whether dout is same
 - cp_op_rd : Cover read operation
 - cp_rd_empty : Cover read operation when fifo is empty
 
-## Feature 3- Simultanious write read
+## Feature 4- Simultanious write read
 
 ### Test- test4
 
@@ -111,7 +111,7 @@ Check the correctness of the read data from FIFO. It checks whether dout is same
 - Functional coverage:
 cp_wr_rd- Cover simultanious write read operations
 
-## Feature 4- Random write read
+## Feature 5- Random write read
 
 ### Test- test2
 
