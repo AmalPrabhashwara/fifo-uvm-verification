@@ -67,3 +67,25 @@ class test3 extends uvm_test;
     endtask
 
 endclass
+
+class test4 extends uvm_test;
+    `uvm_component_utils(test4);
+
+    test_env env;
+
+    function new(string name="test4", uvm_component parent=null);
+        super.new(name,parent);
+    endfunction
+
+    function void build_phase(uvm_phase phase);
+        env=test_env::type_id::create("env",this);
+    endfunction
+
+    task run_phase(uvm_phase phase);
+        rst_write_read_simultanious seq;
+        seq=rst_write_read_simultanious::type_id::create("seq");
+        phase.raise_objection(this);
+        seq.start(env.agent_h.seqr);
+        phase.drop_objection(this);
+    endtask
+endclass
