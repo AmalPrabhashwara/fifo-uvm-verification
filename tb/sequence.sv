@@ -88,7 +88,7 @@ class rst_write_read extends uvm_sequence #(fifo_req,fifo_rsp);
         wr_seq.start(m_sequencer,this);     
       end
       
-      repeat(10)begin 
+      repeat(15)begin 
         read_fifo_seq re_seq;
         re_seq=read_fifo_seq::type_id::create("re_seq");
         re_seq.start(m_sequencer,this);
