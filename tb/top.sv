@@ -17,7 +17,7 @@ module top;
 
     initial begin
       fifo_pkg::global_inf=inf;
-      run_test("test1");
+      run_test("test2");
     end
 
 endmodule
