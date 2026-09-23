@@ -146,23 +146,40 @@ class reset_behave_test_seq extends uvm_sequence #(fifo_req, fifo_rsp);
         reset_seq=reset_fifo_seq::type_id::create("reset_seq");
 
         reset_seq.start(m_sequencer,this);//reset at begining
- 
-        repeat(10)begin
+ 		
+      //fifo write
+      repeat(10)begin
             write_fifo_seq write_seq;
             write_seq=write_fifo_seq::type_id::create("write_seq");
             write_seq.start(m_sequencer,this);
         end
       
-      reset_seq.start(m_sequencer,this);//reset after fifo wrtite 
+        reset_seq.start(m_sequencer,this);//reset after fifo wrtite 
      
-        repeat(20)begin
+      //write
+      repeat(20)begin
             write_fifo_seq write_seq;
             write_seq=write_fifo_seq::type_id::create("write_seq");
             write_seq.start(m_sequencer,this);
         end
 
-      reset_seq.start(m_sequencer,this);//reset when fifo full
+       //read
+      	repeat(10)begin
+            read_fifo_seq read_seq;
+        	read_seq=read_fifo_seq::type_id::create("read_seq");
+            read_seq.start(m_sequencer,this);
+        end
       
+      reset_seq.start(m_sequencer,this);//reset after read
+      
+      //read
+      repeat(5)begin
+            read_fifo_seq read_seq;
+        	read_seq=read_fifo_seq::type_id::create("read_seq");
+            read_seq.start(m_sequencer,this);
+        end
+      
+      //write
       	repeat(10)begin
             write_fifo_seq write_seq;
             write_seq=write_fifo_seq::type_id::create("write_seq");
