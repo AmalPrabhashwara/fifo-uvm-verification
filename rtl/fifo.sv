@@ -72,4 +72,10 @@ endproperty
 
 assert property(wr_cnt_incr) else $error("write counter increment test assertion failed");
 
+property wr_full;
+    @(posedge clk) disable iff(rst)
+    (wen && full) |=> wCnt==$past(wCnt);
+endproperty
+
+assert property(wr_full) else $error("Assertion failed: write fifo when fifo is full");
 endmodule
