@@ -60,7 +60,7 @@ property wr_fifo;
     int index;
     int data;
     @(posedge clk) disable iff(rst)
-  (wen && !full,index=wCnt,data=din) |=> mem[index]==data;
+  (wen && !full,index=wCnt%DEPTH,data=din) |=> mem[index]==data;
 endproperty
 
 assert property(wr_fifo) else $error("fifo write failed");
@@ -93,5 +93,5 @@ assert property(wr_full) else $error("Assertion failed: write fifo when fifo is 
   endproperty
   
     assert property(rd_empty) else $error("Assertion failed: read when fifo is empty"); 
-    
+
 endmodule
