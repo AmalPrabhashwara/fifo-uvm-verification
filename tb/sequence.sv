@@ -65,7 +65,7 @@ class random_seq extends uvm_sequence #(fifo_req,fifo_rsp);
 //       fifo_rsp rsp;
       req=fifo_req::type_id::create("req");
       start_item(req);
-      assert(req.randomize() with {req.op!=reset;});
+      assert(req.randomize());
       finish_item(req);
 //       get_response(rsp);
     endtask
@@ -114,23 +114,12 @@ class write_read_random_seq extends uvm_sequence #(fifo_req,fifo_rsp);
         wr_seq.start(m_sequencer,this);     
       end
       
-      repeat(10)begin 
+      repeat(30)begin 
         random_seq rand_seq;
         rand_seq=random_seq::type_id::create("rand_seq");
         rand_seq.start(m_sequencer,this);
       end
       
-      repeat(10)begin
-        write_fifo_seq wr_seq;
-        wr_seq=write_fifo_seq::type_id::create("wr_seq");
-        wr_seq.start(m_sequencer,this);     
-      end
-      
-      repeat(10)begin 
-        random_seq rand_seq;
-        rand_seq=random_seq::type_id::create("rand_seq");
-        rand_seq.start(m_sequencer,this);
-      end
     endtask
 endclass
 
