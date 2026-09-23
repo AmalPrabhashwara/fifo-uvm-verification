@@ -1,3 +1,4 @@
+
 class reset_fifo_seq extends uvm_sequence #(fifo_req,fifo_rsp);
     `uvm_object_utils(reset_fifo_seq);
 
@@ -7,12 +8,12 @@ class reset_fifo_seq extends uvm_sequence #(fifo_req,fifo_rsp);
 
     task body;
         fifo_req req;
-        fifo_rsp rsp;
+//       	fifo_rsp rsp;
         req=fifo_req::type_id::create("req");
         start_item(req);
         req.op=reset;
         finish_item(req);
-        get_response(rsp);
+//       	get_response(rsp);
     endtask
 endclass
 
@@ -25,12 +26,12 @@ class write_fifo_seq extends uvm_sequence #(fifo_req,fifo_rsp);
 
     task body;
       fifo_req req;
-      fifo_rsp rsp;
+//       fifo_rsp rsp;
       req=fifo_req::type_id::create("req");
       start_item(req);
       assert(req.randomize() with {req.op==write;}); 
       finish_item(req);
-      get_response(rsp);
+//       get_response(rsp);
     endtask
 endclass
 
@@ -43,12 +44,12 @@ class read_fifo_seq extends uvm_sequence #(fifo_req,fifo_rsp);
 
     task body;
       fifo_req req;
-      fifo_rsp rsp;
+//       fifo_rsp rsp;
       req=fifo_req::type_id::create("req");
       start_item(req);
       req.op=read;
       finish_item(req);
-      get_response(rsp);
+//       get_response(rsp);
     endtask
 endclass
 
@@ -61,15 +62,14 @@ class random_seq extends uvm_sequence #(fifo_req,fifo_rsp);
 
     task body;
       fifo_req req;
-      fifo_rsp rsp;
+//       fifo_rsp rsp;
       req=fifo_req::type_id::create("req");
       start_item(req);
       assert(req.randomize() with {req.op!=reset;});
       finish_item(req);
-      get_response(rsp);
+//       get_response(rsp);
     endtask
 endclass
-
 class rst_write_read extends uvm_sequence #(fifo_req,fifo_rsp);
     `uvm_object_utils(rst_write_read);
 
