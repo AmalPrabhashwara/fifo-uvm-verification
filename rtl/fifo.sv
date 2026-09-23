@@ -65,4 +65,11 @@ endproperty
 
 assert property(wr_fifo) else $error("fifo write failed");
 
+property wr_cnt_incr;
+    @(posedge clk) disable iff(rst)
+  (wen && !full && wCnt<2*DEPTH-1) |=> wCnt==$past(wCnt)+1;
+endproperty
+
+assert property(wr_cnt_incr) else $error("write counter increment test assertion failed");
+
 endmodule
