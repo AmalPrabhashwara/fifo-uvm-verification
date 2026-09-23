@@ -15,8 +15,6 @@ class driver extends uvm_driver #(fifo_req,fifo_rsp);
     task run_phase(uvm_phase phase);
         forever begin
             fifo_req req;
-            fifo_rsp rsp;
-            rsp=fifo_rsp::type_id::create("rsp");
             @(negedge inf.clk);
             seq_item_port.get_next_item(req);
 //           `uvm_info("Driver",$psprintf("%s",req.convert2string),UVM_MEDIUM);
@@ -55,14 +53,6 @@ class driver extends uvm_driver #(fifo_req,fifo_rsp);
 //           `uvm_info("Driver",$psprintf("req:%s, wen:%b, ren:%b at time:%t",req.convert2string,inf.wen,inf.ren,$time),UVM_MEDIUM);
             seq_item_port.item_done();
 //             drvCnt++;
-            if(inf.full)
-                rsp.status=full;
-            else if(inf.empty)
-                rsp.status=empty;
-            else
-                rsp.status=mid;
-            rsp.set_id_info(req);
-            seq_item_port.put_response(rsp);
         end
     endtask
 endclass
