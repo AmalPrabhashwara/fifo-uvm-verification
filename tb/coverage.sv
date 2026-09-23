@@ -44,7 +44,9 @@ class coverage extends uvm_agent;
         cp_rd_empty:cross cp_op, cp_stat{
             bins rd_empty=binsof(cp_op.rd) && binsof(cp_stat.empty);
         }
-
+        cp_wr_rd:coverpoint op{
+            bins wr_rd={write_read};
+        }
     endgroup
 
     function new(string name="coverage", uvm_component parent=null);
