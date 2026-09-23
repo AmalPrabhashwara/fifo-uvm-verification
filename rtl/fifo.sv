@@ -78,4 +78,20 @@ property wr_full;
 endproperty
 
 assert property(wr_full) else $error("Assertion failed: write fifo when fifo is full");
+
+ 
+  property rd_cnt_incr;
+    @(posedge clk) disable iff(rst)
+    (ren && !empty && rCnt<2*DEPTH-1)|=> rCnt==$past(rCnt)+1;
+  endproperty
+  
+  assert property(rd_cnt_incr) else $error("Assertion failed: No read counter increments when read");
+    
+    property rd_empty;
+    @(posedge clk) disable iff(rst)
+      (ren && empty)|=> rCnt==$past(rCnt);
+  endproperty
+  
+    assert property(rd_empty) else $error("Assertion failed: read when fifo is empty"); 
+    
 endmodule
